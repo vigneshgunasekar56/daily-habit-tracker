@@ -1,13 +1,27 @@
 <!doctype html>
 <html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Daily Habit Tracker</title>
-  <link rel="stylesheet" href="styles.css" />
-</head>
-<body>
-  <h1>Daily Habit Tracker</h1>
-  <script src="app.js"></script>
-</body>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Daily Habit Tracker</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <h1>Daily Habit Tracker</h1>
+      <form id="add-form" class="add-form">
+        <input
+          type="text"
+          placeholder="New habit, e.g. Read 10 pages"
+          maxlength="80"
+          id="habit-input"
+          required
+        />
+        <button type="submit" class="primary">Add</button>
+      </form>
+      <ul id="habit-list" class="habit-list"></ul>
+      <p id="empty-message" class="empty">No habits yet. Add one above.</p>
+    </main>
+    <script src="app.js"></script>
+  </body>
 </html>
