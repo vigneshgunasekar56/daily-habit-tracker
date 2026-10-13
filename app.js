@@ -16,6 +16,10 @@ function loadHabits() {
   }
 }
 
+function saveHabits() {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
 function formatDate(date) {
   const year = date.getFullYear();
   const month = String(date.getMonth() + 1).padStart(2, "0");
@@ -36,10 +40,18 @@ function shiftDate(dateString, days) {
 
 function createHabitItem(habit) {
     const li = document.createElement("li");
-    li.className = "habit";
+    li.className = isDoneToday(habit) ? "habit done" : "habit";
 
-    const div = document.createElement("div");
-    div.className = "habit-main";
+    const button = document.createElement("button");
+    button.className = "habit-main";
+
+    button.addEventListener("click", function() {
+        toggleToday(habit.id);
+    });
+
+    const check = document.createElement("span");
+    check.className = "check";
+    check.textContent = isDoneToday(habit) ? "✓" : "";
 
     const text = document.createElement("span");
     text.className = "habit-text";
@@ -50,12 +62,15 @@ function createHabitItem(habit) {
 
     const streak = document.createElement("span");
     streak.className = "habit-streak";
-    streak.textContent = "0 day streak";
+    streak.textContent = calculateStreak(habit) + " day streak";
 
     text.appendChild(name);
     text.appendChild(streak);
-    div.appendChild(text);
-    li.appendChild(div);
+
+    button.appendChild(check);
+    button.appendChild(text);
+
+    li.appendChild(button);
 
     return li;
 }
@@ -81,7 +96,51 @@ function addHabit(name) {
   };
 
   state.push(newHabit);
+  saveHabits();
   render();
+}
+
+function findHabit(id) {
+    return state.find(function(habit) {
+        return habit.id === id;
+    });
+}
+
+function isDoneToday(habit) {
+ return habit.doneDates.includes(todayString());
+}
+
+function calculateStreak(habit) {
+    let date = todayString();
+
+    if (!habit.doneDates.includes(date)) {
+        date = shiftDate(date, -1);
+    }
+
+    let streak = 0;
+
+    while (habit.doneDates.includes(date)) {
+        streak++;
+        date = shiftDate(date, -1);
+    }
+
+    return streak;
+}
+
+function toggleToday(id) {
+    const habit = findHabit(id);
+    const today = todayString();
+
+    if (habit.doneDates.includes(today)) {
+        habit.doneDates = habit.doneDates.filter(function(date) {
+            return date !== today;
+        });
+    } else {
+        habit.doneDates.push(today);
+    }
+
+    saveHabits();
+    render();
 }
 
 function setupForm(input) {
