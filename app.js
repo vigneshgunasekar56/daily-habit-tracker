@@ -34,6 +34,22 @@ function shiftDate(dateString, days) {
   return formatDate(date);
 }
 
+function setupForm(input) {
+  const form = document.querySelector("#add-form");
+  form.addEventListener("submit", function (event) {
+    event.preventDefault();
+
+    const trimmed = input.value.trim();
+
+    if (trimmed === "") {
+      console.log("Type a habit first");
+    } else {
+      console.log(trimmed);
+      input.value = "";
+    }
+  });
+}
+
 function init() {
   state = loadHabits();
   const input = document.querySelector("#habit-input");
@@ -44,6 +60,8 @@ function init() {
     console.log("Input not found");
   }
   console.log(todayString());
+  
+  setupForm(input);
 }
 
 init();
