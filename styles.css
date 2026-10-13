@@ -45,3 +45,141 @@ button.primary:hover {
   background: #256b4d;
   cursor:pointer;
 }
+/* Habit list container */
+#habit-list {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0 0;
+}
+
+/* Individual habit card */
+.habit {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    padding: 12px 13px;
+    margin-bottom: 12px;
+    background-color: #ffffff;
+    border-radius: 12px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.06);
+}
+
+/* Completed habit card */
+.habit.done {
+    background-color: #e6f4ec;
+}
+
+/* Main habit button */
+.habit-main {
+    display: flex;
+    align-items: center;
+    flex: 1;
+    gap: 12px;
+    min-width: 0;
+    padding: 0;
+    border: none;
+    background: transparent;
+    color: #222;
+    text-align: left;
+    cursor: pointer;
+}
+
+/* Circular completion indicator */
+.check {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 28px;
+    height: 28px;
+    border: 2px solid #d1d5db;
+    border-radius: 50%;
+    color: #ffffff;
+    font-size: 17px;
+    font-weight: bold;
+}
+
+/* Green indicator for completed habits */
+.habit.done .check {
+    background-color: #2d8060;
+    border-color: #2d8060;
+}
+
+/* Habit name and streak */
+.habit-text {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+    min-width: 0;
+}
+
+/* Habit title */
+.habit-name {
+    font-size: 16px;
+    line-height: 1.4;
+    overflow-wrap: anywhere;
+}
+
+/* Streak information */
+.habit-streak {
+    color: #777;
+    font-size: 13px;
+    line-height: 1.3;
+}
+
+/* Edit and Delete button container */
+.habit-actions {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    flex-shrink: 0;
+    gap: 6px;
+}
+
+/* Edit and Delete buttons */
+.habit-actions button {
+    min-width: 61px;
+    padding: 6px 10px;
+    border: 1px solid #c7c7c7;
+    border-radius: 9px;
+    background-color: #ffffff;
+    color: #222;
+    font-size: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+}
+
+/* Button hover effect */
+.habit-actions button:hover {
+    background-color: #f0f0f0;
+}
+
+/* Empty list message */
+#empty-message {
+    margin-top: 20px;
+    color: #777;
+    text-align: center;
+    font-size: 14px;
+}
+
+/* Responsive layout */
+@media (max-width: 480px) {
+    .habit {
+        gap: 8px;
+        padding: 10px;
+    }
+
+    .habit-main {
+        gap: 8px;
+    }
+
+    .habit-name {
+        font-size: 14px;
+    }
+
+    .habit-actions button {
+        min-width: 55px;
+        padding: 6px 8px;
+    }
+}
