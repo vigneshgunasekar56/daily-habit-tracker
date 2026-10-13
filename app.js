@@ -70,7 +70,35 @@ function createHabitItem(habit) {
     button.appendChild(check);
     button.appendChild(text);
 
+    // Create the actions container
+    const actions = document.createElement("div");
+    actions.className = "habit-actions";
+
+    // Create the Edit button
+    const editButton = document.createElement("button");
+    editButton.textContent = "Edit";
+
+    editButton.addEventListener("click", function(event) {
+        event.stopPropagation();
+        renameHabit(habit.id);
+    });
+
+    // Create the Delete button
+    const deleteButton = document.createElement("button");
+    deleteButton.textContent = "Delete";
+
+    deleteButton.addEventListener("click", function(event) {
+        event.stopPropagation();
+        deleteHabit(habit.id);
+    });
+
+    // Add action buttons to the container
+    actions.appendChild(editButton);
+    actions.appendChild(deleteButton);
+
+    // Add the main button and actions to the row
     li.appendChild(button);
+    li.appendChild(actions);
 
     return li;
 }
@@ -138,6 +166,40 @@ function toggleToday(id) {
     } else {
         habit.doneDates.push(today);
     }
+
+    saveHabits();
+    render();
+}
+
+function renameHabit(id) {
+    const habit = findHabit(id);
+
+    if (!habit) {
+        return;
+    }
+
+    const answer = prompt("Rename habit", habit.name);
+
+    if (answer === null || answer.trim() === "") {
+        return;
+    }
+
+    habit.name = answer.trim();
+
+    saveHabits();
+    render();
+}
+
+function deleteHabit(id) {
+    const confirmed = confirm("Delete this habit?");
+
+    if (!confirmed) {
+        return;
+    }
+
+    state = state.filter(function(habit) {
+        return habit.id !== id;
+    });
 
     saveHabits();
     render();
