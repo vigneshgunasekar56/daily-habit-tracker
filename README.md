@@ -1,0 +1,1 @@
+Daily Habit Tracker is an app to track the daily habits of the user
